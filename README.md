@@ -8,4 +8,9 @@
   Run `npm i` to install the dependencies.
 
   Run `npm run dev` to start the development server.
-  
+  ## cd /backend 
+    Run "pip install uvicorn fastapi"
+
+    Run "python -m pip install uvicorn fastapi"
+
+    Run "python -m uvicorn main:app --reload"
