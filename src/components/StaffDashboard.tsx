@@ -62,7 +62,7 @@ export function StaffDashboard({ onBack }: StaffDashboardProps) {
     { icon: <FileText className="w-4 h-4" />, label: 'Student Leaves', active: activeSection === 'student_leaves', onClick: () => setActiveSection('student_leaves') },
   ];
 
-  const roleNotifications = getNotificationsByUser('staff');
+  const roleNotifications = getNotificationsByUser(staffId);
 
   const holidays = [
     { date: '2024-12-25', name: 'Christmas Day', type: 'National Holiday' },
@@ -337,23 +337,23 @@ export function StaffDashboard({ onBack }: StaffDashboardProps) {
       }
 
       const data = await response.json();
-      console.log('Leave request submitted:', data);
-      const getStaffLeaveRequests = () => {
-  return leaveRequests.filter(
-    (req: any) =>
-      req.applicantType === 'staff' &&
-      req.applicantId === staffId
-  );
-};
+console.log('Leave request submitted:', data);
 
-      // Show success notification
-      addNotification({
-        userId: staffId,
-        title: '✅ Leave Request Submitted',
-        message: `Your ${staffLeaveForm.leaveType} (${staffLeaveForm.startDate} to ${staffLeaveForm.endDate}) has been submitted and is pending HOD approval.`,
-        type: 'success',
-        read: false
-      });
+addLeaveRequest({
+  ...data.leaveRequest,
+  applicantType: 'staff',
+  applicantId: staffId,
+  staffId: staffId,
+  staffName: staffName
+});
+
+addNotification({
+  userId: staffId,
+  title: '✅ Leave Request Submitted',
+  message: `Your ${staffLeaveForm.leaveType} (${staffLeaveForm.startDate} to ${staffLeaveForm.endDate}) has been submitted and is pending HOD approval.`,
+  type: 'success',
+  read: false
+});
 
       // Reset form
       setStaffLeaveForm({ leaveType: '', startDate: '', endDate: '', days: 1, reason: '', priority: 'low', department: staffLeaveForm.department });
