@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001/api';
+const BASE_URL = 'http://localhost:8080/api';
 
 function getFutureDate(daysOffset) {
   const date = new Date();
