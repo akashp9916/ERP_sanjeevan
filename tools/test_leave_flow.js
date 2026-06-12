@@ -1,6 +1,6 @@
 (async () => {
   try {
-    const base = 'http://localhost:3001';
+    const base = 'http://localhost:8080';
     const leavePayload = {
       applicantType: 'staff',
       applicantId: 'staff_test_1',

@@ -298,11 +298,14 @@ export function StaffDashboard({ onBack }: StaffDashboardProps) {
     department: 'Computer Science'
   });
 
-  const getStaffLeaveRequests = () => {
-    // Helper to get staff's own leave requests from context
-    return leaveRequests.filter((req: any) => req.requestedBy === 'staff' && req.staffId === staffId);
-  };
-
+ const getStaffLeaveRequests = () => {
+  // Helper to get staff's own leave requests from context
+  return leaveRequests.filter(
+    (req: any) =>
+      req.applicantType === 'staff' &&
+      req.applicantId === staffId
+  );
+};
   const submitStaffLeave = async () => {
     if (!staffLeaveForm.leaveType || !staffLeaveForm.startDate || !staffLeaveForm.endDate || !staffLeaveForm.reason) {
       alert('Please fill in all required fields');
@@ -310,7 +313,7 @@ export function StaffDashboard({ onBack }: StaffDashboardProps) {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/leaves', {
+      const response = await fetch('http://localhost:8080/api/leaves', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -335,6 +338,13 @@ export function StaffDashboard({ onBack }: StaffDashboardProps) {
 
       const data = await response.json();
       console.log('Leave request submitted:', data);
+      const getStaffLeaveRequests = () => {
+  return leaveRequests.filter(
+    (req: any) =>
+      req.applicantType === 'staff' &&
+      req.applicantId === staffId
+  );
+};
 
       // Show success notification
       addNotification({
